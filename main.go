@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
@@ -20,6 +21,7 @@ You should write configuration file using following syntax:
     password = "sup3rp@ssw0rd31337"
 
 Usage:
+    stacket [options] repositories  list   <project>
     stacket [options] repositories  create <project> <repository>
     stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
     stacket -h | --help
@@ -44,16 +46,17 @@ func main() {
 	}
 
 	var (
-		repositoriesMode = args["repositories"].(bool)
-		pullRequestsMode = args["pull-requests"].(bool)
-		createMode       = args["create"].(bool)
-		projectSlug      = args["<project>"].(string)
-		repositorySlug   = args["<repository>"].(string)
-		fromBranch, _    = args["<from>"].(string)
-		toBranch, _      = args["<to>"].(string)
-		title, _         = args["-t"].(string)
-		description, _   = args["-d"].(string)
-		reviewers, _     = args["-r"].([]string)
+		repositoriesMode  = args["repositories"].(bool)
+		pullRequestsMode  = args["pull-requests"].(bool)
+		listMode          = args["list"].(bool)
+		createMode        = args["create"].(bool)
+		projectSlug       = args["<project>"].(string)
+		repositorySlug, _ = args["<repository>"].(string)
+		fromBranch, _     = args["<from>"].(string)
+		toBranch, _       = args["<to>"].(string)
+		title, _          = args["-t"].(string)
+		description, _    = args["-d"].(string)
+		reviewers, _      = args["-r"].([]string)
 
 		configPath = args["--config"].(string)
 	)
@@ -68,9 +71,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	stash.Log = log.New(ioutil.Discard, "", log.Ldate|log.Ltime|log.Lshortfile)
+
 	client := stash.NewClient(config.Username, config.Password, baseURL)
 
 	switch {
+	case repositoriesMode && listMode:
+		err = listRepositories(client, baseURL, projectSlug)
+
 	case repositoriesMode && createMode:
 		err = createRepository(client, baseURL, projectSlug, repositorySlug)
 
