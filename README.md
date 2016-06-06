@@ -1,7 +1,8 @@
 stacket
 =======
 
-The client for Atlassiah Stash/Bitbucket Server.
+The client for Atlassiah Stash/Bitbucket Server that provides command line
+interface for managing pull-requests, repositories and their settings.
 
 ## Features
 
@@ -14,12 +15,29 @@ The client for Atlassiah Stash/Bitbucket Server.
 - [ ] pull-requests: merge
 - [ ] pull-requests: decline
 
+## Installation
+
+**stacket** is go-gettable:
+
+```
+go get github.com/kovetskiy/stacket
+```
+
+Arch Linux users can create package using `pkgbuild` branch.
 
 ## Usage
 
 #### Create a repository
+
 ```
 stacket repositories create <project> <repository>
+```
+
+
+#### List repositories
+
+```
+stacket repositories list <project>
 ```
 
 #### Create a pull-request
@@ -40,4 +58,3 @@ base_url = "http://git.local"
 username = "e.kovetskiy"
 password = "sup3rp@ssw0rd31337"
 ```
-
