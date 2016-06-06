@@ -5,9 +5,10 @@ The client for Atlassiah Stash/Bitbucket Server.
 
 ## Features
 
-- [x] repositories: create
+- [x] repositories: create new
+- [x] repositories: list
 - [ ] repositories: edit settings
-- [x] pull-requests: create
+- [x] pull-requests: create new
 - [ ] pull-requests: edit
 - [ ] pull-requests: approve
 - [ ] pull-requests: merge
@@ -39,3 +40,4 @@ base_url = "http://git.local"
 username = "e.kovetskiy"
 password = "sup3rp@ssw0rd31337"
 ```
+
