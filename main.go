@@ -15,19 +15,19 @@ var (
 stacket is the client for Atlassian Stash/Bitbucket Server.
 
 You should write configuration file using following syntax:
-	base_url = "http://git.local"
-	username = "e.kovetskiy"
-	password = "sup3rp@ssw0rd31337"
+    base_url = "http://git.local"
+    username = "e.kovetskiy"
+    password = "sup3rp@ssw0rd31337"
 
 Usage:
-	stacket [options] repositories  create <project> <repository>
-	stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
-	stacket -h | --help
-	stacket --version
+    stacket [options] repositories  create <project> <repository>
+    stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
+    stacket -h | --help
+    stacket --version
 
 Options:
-	repositories            Work with <project> repositories.
-	pull-requests           Work with <project>/<repository> pull-requests.
+    repositories            Work with <project> repositories.
+    pull-requests           Work with <project>/<repository> pull-requests.
         -t <title>          Speicfy pull-request title.
         -d <description>    Specify pull-request description.
     --config <path>         Use specified config file
