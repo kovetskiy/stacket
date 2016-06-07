@@ -34,7 +34,7 @@ func createPullRequest(
 	}
 
 	fmt.Printf(
-		"%s/repos/%s/project/%s/pull-requests/%d/overview\n",
+		"%s/projects/%s/repos/%s/pull-requests/%d/overview\n",
 		strings.TrimRight(baseURL.String(), "/"),
 		project, repository,
 		pr.ID,
