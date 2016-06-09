@@ -1,6 +1,7 @@
 package main
 
 import "github.com/jinzhu/configor"
+import "strings"
 
 type config struct {
 	BaseURL  string `toml:"base_url" required:"true"`
@@ -15,6 +16,8 @@ func getConfig(path string) (config, error) {
 	if err != nil {
 		return config, err
 	}
+
+	config.BaseURL = strings.TrimSuffix(config.BaseURL, `/`)
 
 	return config, err
 }
