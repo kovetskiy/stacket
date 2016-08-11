@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"net/url"
+	"os"
+	"os/exec"
 	"sort"
 	"strings"
 
+	"github.com/kovetskiy/executil"
 	"github.com/kovetskiy/stash"
+	"github.com/seletskiy/hierr"
 )
 
 func createRepository(
@@ -25,8 +29,44 @@ func createRepository(
 		repo.Name,
 	)
 
-	for _, link := range repo.Links.Clones {
-		fmt.Printf("clone/%s: %s\n", link.Name, link.HREF)
+	fmt.Println(repo.SshUrl())
+
+	err = setRemote(repo.SshUrl())
+	if err != nil {
+		return hierr.Errorf(
+			err, "the repository has been created, but can't setup git remote",
+		)
+	}
+
+	return nil
+}
+
+func setRemote(url string) error {
+	if _, err := os.Stat(".git"); os.IsNotExist(err) {
+		return nil
+	}
+
+	remotes, _, err := executil.Run(
+		exec.Command("git", "remote", "show", "-n", "origin"),
+	)
+	if err != nil {
+		return err
+	}
+
+	if len(strings.TrimSpace(string(remotes))) != 0 {
+		_, _, err = executil.Run(
+			exec.Command("git", "remote", "set-url", "origin", url),
+		)
+		if err != nil {
+			return err
+		}
+	} else {
+		_, _, err = executil.Run(
+			exec.Command("git", "remote", "add", "origin", url),
+		)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

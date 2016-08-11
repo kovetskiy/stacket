@@ -6,44 +6,44 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/docopt/docopt-go"
+	"github.com/kovetskiy/godocs"
 	"github.com/kovetskiy/stash"
 )
 
 var (
-	version = "1.0"
+	version = "2.0"
 	usage   = os.ExpandEnv(`
 stacket is the client for Atlassian Stash/Bitbucket Server.
 
 You should write configuration file using following syntax:
-    base_url = "http://git.local"
-    username = "e.kovetskiy"
-    password = "sup3rp@ssw0rd31337"
+  base_url = "http://git.local"
+  username = "e.kovetskiy"
+  password = "sup3rp@ssw0rd31337"
 
 Usage:
-    stacket [options] repositories  list   <project>
-    stacket [options] repositories  create <project> <repository>
-    stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
-    stacket -h | --help
-    stacket --version
+  stacket [options] repositories  list   <project>
+  stacket [options] repositories  create <project> <repository>
+  stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
+  stacket -h | --help
+  stacket --version
 
 Options:
-    repositories            Work with <project> repositories.
-    pull-requests           Work with <project>/<repository> pull-requests.
-        -t <title>          Speicfy pull-request title.
-        -d <description>    Specify pull-request description.
-    --config <path>         Use specified config file
-                             [default: $HOME/.config/stacket.conf].
-    -h --help               Show this screen.
-    --version               Show version.
+  repositories                 Work with <project> repositories.
+  pull-requests                Work with <project>/<repository> pull-requests.
+    -t --title <title>         Speicfy pull-request title.
+    -d --desc <description>    Specify pull-request description.
+    -r --reviewer <reviewer>   Specify pull-request reviewer.
+  --config <path>              Use specified config file
+                                [default: $HOME/.config/stacket.conf].
+  -h --help                    Show this screen.
+  --version                    Show version.
 `)
 )
 
 func main() {
-	args, err := docopt.Parse(usage, nil, true, version, true, true)
-	if err != nil {
-		panic(err)
-	}
+	args := godocs.MustParse(usage, version, godocs.UsePager)
+
+	log.SetFlags(0)
 
 	var (
 		repositoriesMode  = args["repositories"].(bool)
@@ -54,9 +54,9 @@ func main() {
 		repositorySlug, _ = args["<repository>"].(string)
 		fromBranch, _     = args["<from>"].(string)
 		toBranch, _       = args["<to>"].(string)
-		title, _          = args["-t"].(string)
-		description, _    = args["-d"].(string)
-		reviewers, _      = args["-r"].([]string)
+		title, _          = args["--title"].(string)
+		description, _    = args["--desc"].(string)
+		reviewers, _      = args["--reviewer"].([]string)
 
 		configPath = args["--config"].(string)
 	)
