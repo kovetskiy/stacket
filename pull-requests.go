@@ -37,6 +37,11 @@ func handlePullRequestsCreate(
 	}
 
 	fmt.Printf(
+		"pull-request %s -> %s at %s/%s has been created:\n",
+		branchFrom, branchTo, project, repository,
+	)
+
+	fmt.Printf(
 		"%s/projects/%s/repos/%s/pull-requests/%d/overview\n",
 		strings.TrimRight(remote.url.String(), "/"),
 		project, repository,

@@ -25,18 +25,26 @@ func handleRepositoriesCreate(
 	}
 
 	fmt.Printf(
+		"repository %s/%s has been created:\n",
+		project, repository,
+	)
+
+	fmt.Printf(
 		"%s/repos/projects/%s/repos/%s\n",
 		strings.TrimRight(remote.url.String(), "/"),
 		repo.Project.Key,
 		repo.Name,
 	)
 
-	fmt.Println(repo.SshUrl())
+	fmt.Printf(
+		"ssh: %s\n",
+		repo.SshUrl(),
+	)
 
 	err = setRemote(repo.SshUrl())
 	if err != nil {
 		return hierr.Errorf(
-			err, "the repository has been created, but can't setup git remote",
+			err, "can't setup git remote",
 		)
 	}
 
@@ -84,7 +92,7 @@ func handleRepositoriesRename(args map[string]interface{}) error {
 	}
 
 	fmt.Printf(
-		"The repository %s/%s has been renamed to %s/%s\n",
+		"the repository %s/%s has been renamed to %s/%s\n",
 		project, repository,
 		project, newName,
 	)
@@ -105,7 +113,7 @@ func handleRepositoriesMove(args map[string]interface{}) error {
 	}
 
 	fmt.Printf(
-		"The repository %s/%s has been moved to %s/%s\n",
+		"the repository %s/%s has been moved to %s/%s\n",
 		project, repository,
 		newProject, repository,
 	)
@@ -125,7 +133,7 @@ func handleRepositoriesRemove(args map[string]interface{}) error {
 	}
 
 	fmt.Printf(
-		"The repository %s/%s has been removed\n",
+		"the repository %s/%s has been removed\n",
 		project, repository,
 	)
 
