@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	version = "2.0"
+	version = "2.2"
 	usage   = os.ExpandEnv(`
 stacket is the client for Atlassian Stash/Bitbucket Server.
 
@@ -23,6 +23,9 @@ You should write configuration file using following syntax:
 Usage:
   stacket [options] repositories  list   <project>
   stacket [options] repositories  create <project> <repository>
+  stacket [options] repositories  rename <project> <repository> <new-name>
+  stacket [options] repositories  move   <project> <repository> <new-project>
+  stacket [options] repositories  remove <project> <repository>
   stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
   stacket -h | --help
   stacket --version
@@ -40,59 +43,70 @@ Options:
 `)
 )
 
+var remote = struct {
+	stash.Stash
+	url *url.URL
+}{}
+
+type handlers map[string]func(map[string]interface{}) error
+
+func init() {
+	stash.Log = log.New(ioutil.Discard, "", 0)
+	log.SetFlags(0)
+}
+
 func main() {
 	args := godocs.MustParse(usage, version, godocs.UsePager)
 
-	log.SetFlags(0)
+	config, err := getConfig(args["--config"].(string))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	var (
-		repositoriesMode  = args["repositories"].(bool)
-		pullRequestsMode  = args["pull-requests"].(bool)
-		listMode          = args["list"].(bool)
-		createMode        = args["create"].(bool)
-		projectSlug       = args["<project>"].(string)
-		repositorySlug, _ = args["<repository>"].(string)
-		fromBranch, _     = args["<from>"].(string)
-		toBranch, _       = args["<to>"].(string)
-		title, _          = args["--title"].(string)
-		description, _    = args["--desc"].(string)
-		reviewers, _      = args["--reviewer"].([]string)
+	remote.url, err = url.Parse(config.BaseURL)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-		configPath = args["--config"].(string)
+	remote.Stash = stash.NewClient(
+		config.Username,
+		config.Password,
+		remote.url,
 	)
 
-	config, err := getConfig(configPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	baseURL, err := url.Parse(config.BaseURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	stash.Log = log.New(ioutil.Discard, "", log.Ldate|log.Ltime|log.Lshortfile)
-
-	client := stash.NewClient(config.Username, config.Password, baseURL)
-
 	switch {
-	case repositoriesMode && listMode:
-		err = listRepositories(client, baseURL, projectSlug)
-
-	case repositoriesMode && createMode:
-		err = createRepository(client, baseURL, projectSlug, repositorySlug)
-
-	case pullRequestsMode && createMode:
-		err = createPullRequest(
-			client, baseURL,
-			projectSlug, repositorySlug,
-			fromBranch, toBranch,
-			title, description, reviewers,
+	case args["repositories"]:
+		err = handle(
+			args,
+			handlers{
+				"list":   handleRepositoriesList,
+				"create": handleRepositoriesCreate,
+				"rename": handleRepositoriesRename,
+				"move":   handleRepositoriesMove,
+				"remove": handleRepositoriesRemove,
+			},
 		)
 
+	case args["pull-requests"].(bool):
+		err = handle(
+			args,
+			handlers{
+				"create": handlePullRequestsCreate,
+			},
+		)
 	}
 
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func handle(args map[string]interface{}, callbacks handlers) error {
+	for arg, callback := range callbacks {
+		if ok, _ := args[arg].(bool); ok {
+			return callback(args)
+		}
+	}
+
+	return nil
 }

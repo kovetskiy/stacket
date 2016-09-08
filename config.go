@@ -1,12 +1,15 @@
 package main
 
-import "github.com/jinzhu/configor"
-import "strings"
+import (
+	"strings"
+
+	"github.com/jinzhu/configor"
+)
 
 type config struct {
 	BaseURL  string `toml:"base_url" required:"true"`
-	Username string `required:"true"`
-	Password string `required:"true"`
+	Username string `toml:"username" required:"true"`
+	Password string `toml:"password" required:"true"`
 }
 
 func getConfig(path string) (config, error) {
