@@ -58,16 +58,14 @@ func handleRepositoriesList(
 		project = args["<project>"].(string)
 	)
 
-	repos, err := remote.GetRepositories()
+	repos, err := remote.GetProjectRepositories(project)
 	if err != nil {
 		return err
 	}
 
 	repositories := []string{}
 	for _, repo := range repos {
-		if strings.ToLower(repo.Project.Key) == strings.ToLower(project) {
-			repositories = append(repositories, repo.Name)
-		}
+		repositories = append(repositories, repo.Name)
 	}
 
 	sort.Strings(repositories)
