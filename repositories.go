@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/kovetskiy/executil"
-	"github.com/seletskiy/hierr"
+	"github.com/reconquest/executil-go"
+	"github.com/reconquest/hierr-go"
 )
 
 func handleRepositoriesCreate(
