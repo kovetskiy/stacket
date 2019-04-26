@@ -21,6 +21,7 @@ You should write configuration file using following syntax:
   password = "sup3rp@ssw0rd31337"
 
 Usage:
+  stacket [options] projects      create <project>
   stacket [options] repositories  list   <project>
   stacket [options] repositories  create <project> <repository>
   stacket [options] repositories  rename <project> <repository> <new-name>
@@ -31,6 +32,7 @@ Usage:
   stacket --version
 
 Options:
+  projects                     Work with projects.
   repositories                 Work with <project> repositories.
   pull-requests                Work with <project>/<repository> pull-requests.
     -t --title <title>         Speicfy pull-request title.
@@ -75,6 +77,11 @@ func main() {
 	)
 
 	switch {
+	case args["projects"]:
+		err = handle(args, handlers{
+			"create": handleProjectsCreate,
+		})
+
 	case args["repositories"]:
 		err = handle(
 			args,
