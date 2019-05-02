@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/kovetskiy/godocs"
+	"github.com/docopt/docopt-go"
 	"github.com/kovetskiy/stash"
 )
 
@@ -40,6 +40,7 @@ Options:
     -r --reviewer <reviewer>   Specify pull-request reviewer.
   --config <path>              Use specified config file
                                 [default: $HOME/.config/stacket.conf].
+  --uri <bitbucket>            Use this URI instead of config.
   -h --help                    Show this screen.
   --version                    Show version.
 `)
@@ -58,9 +59,17 @@ func init() {
 }
 
 func main() {
-	args := godocs.MustParse(usage, version, godocs.UsePager)
+	args, err := docopt.Parse(usage, nil, true, version, false)
+	if err != nil {
+		panic(err)
+	}
 
-	config, err := getConfig(args["--config"].(string))
+	var config Config
+	if rawuri, ok := args["--uri"].(string); ok {
+		config, err = getConfigFromURI(rawuri)
+	} else {
+		config, err = getConfig(args["--config"].(string))
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
