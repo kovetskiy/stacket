@@ -41,11 +41,13 @@ func handleRepositoriesCreate(
 		repo.SshUrl(),
 	)
 
-	err = setRemote(repo.SshUrl())
-	if err != nil {
-		return hierr.Errorf(
-			err, "can't setup git remote",
-		)
+	if args["--git"].(bool) {
+		err = setRemote(repo.SshUrl())
+		if err != nil {
+			return hierr.Errorf(
+				err, "can't setup git remote",
+			)
+		}
 	}
 
 	return nil

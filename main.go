@@ -32,17 +32,18 @@ Usage:
   stacket --version
 
 Options:
-  projects                     Work with projects.
-  repositories                 Work with <project> repositories.
-  pull-requests                Work with <project>/<repository> pull-requests.
-    -t --title <title>         Speicfy pull-request title.
-    -d --desc <description>    Specify pull-request description.
-    -r --reviewer <reviewer>   Specify pull-request reviewer.
-  --config <path>              Use specified config file
-                                [default: $HOME/.config/stacket.conf].
-  --uri <bitbucket>            Use this URI instead of config.
-  -h --help                    Show this screen.
-  --version                    Show version.
+  projects                      Work with projects.
+  repositories                  Work with <project> repositories.
+  pull-requests                 Work with <project>/<repository> pull-requests.
+    -t --title <title>          Speicfy pull-request title.
+    -d --desc <description>     Specify pull-request description.
+    -r --reviewer <reviewer>    Specify pull-request reviewer.
+  --config <path>               Use specified config file
+                                 [default: $HOME/.config/stacket.conf].
+  --uri <bitbucket>             Use this URI instead of config.
+  -g --git                      Set git remote origin.
+  -h --help                     Show this screen.
+  --version                     Show version.
 `)
 )
 
