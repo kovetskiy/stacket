@@ -28,6 +28,8 @@ Usage:
   stacket [options] repositories  move   <project> <repository> <new-project>
   stacket [options] repositories  remove <project> <repository>
   stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
+  stacket [options] addons uninstall <addon>
+  stacket [options] addons install <path>
   stacket -h | --help
   stacket --version
 
@@ -38,6 +40,7 @@ Options:
     -t --title <title>          Speicfy pull-request title.
     -d --desc <description>     Specify pull-request description.
     -r --reviewer <reviewer>    Specify pull-request reviewer.
+  addons                        Work with Atlassian Add-ons.
   --config <path>               Use specified config file
                                  [default: $HOME/.config/stacket.conf].
   --uri <bitbucket>             Use this URI instead of config.
@@ -109,6 +112,14 @@ func main() {
 			args,
 			handlers{
 				"create": handlePullRequestsCreate,
+			},
+		)
+
+	case args["addons"].(bool):
+		err = handle(args,
+			handlers{
+				"uninstall": handleAddonsUninstall,
+				"install":   handleAddonsInstall,
 			},
 		)
 	}
