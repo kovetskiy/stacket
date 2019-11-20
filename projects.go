@@ -23,7 +23,7 @@ func handleProjectsCreate(
 	)
 
 	fmt.Printf(
-		"%s/repos/projects/%s\n",
+		"%s/projects/%s\n",
 		strings.TrimRight(remote.url.String(), "/"),
 		project.Key,
 	)
