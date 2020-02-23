@@ -30,6 +30,7 @@ Usage:
   stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
   stacket [options] addons uninstall <addon>
   stacket [options] addons install <path>
+  stacket [options] addons license set <addon>
   stacket -h | --help
   stacket --version
 
@@ -120,6 +121,7 @@ func main() {
 			handlers{
 				"uninstall": handleAddonsUninstall,
 				"install":   handleAddonsInstall,
+				"license":   handleAddonsLicense,
 			},
 		)
 	}
