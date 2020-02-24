@@ -11,7 +11,7 @@ import (
 func handleAddonsUninstall(
 	args map[string]interface{},
 ) error {
-	var name = args["<addon>"].(string)
+	name := args["<addon>"].(string)
 
 	token, err := remote.GetUPMToken()
 	if err != nil {
@@ -37,9 +37,7 @@ func handleAddonsUninstall(
 func handleAddonsInstall(
 	args map[string]interface{},
 ) error {
-	var (
-		path = args["<path>"].(string)
-	)
+	path := args["<path>"].(string)
 
 	token, err := remote.GetUPMToken()
 	if err != nil {
@@ -66,9 +64,7 @@ func handleAddonsInstall(
 func handleAddonsLicense(
 	args map[string]interface{},
 ) error {
-	var (
-		addon = args["<addon>"].(string)
-	)
+	addon := args["<addon>"].(string)
 
 	license, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
@@ -85,6 +81,74 @@ func handleAddonsLicense(
 			"unable to set addon license",
 		)
 	}
+
+	return nil
+}
+
+func handleAddonsEnable(
+	args map[string]interface{},
+) error {
+	key := args["<addon>"].(string)
+
+	token, err := remote.GetUPMToken()
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to retrieve UPM token",
+		)
+	}
+
+	addon, err := remote.GetAddon(token, key)
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to retrieve addon",
+		)
+	}
+
+	err = remote.EnableAddon(token, addon)
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to enable addon",
+		)
+	}
+
+	fmt.Printf("addon has been enabled: %s\n", key)
+
+	return nil
+}
+
+func handleAddonsDisable(
+	args map[string]interface{},
+) error {
+	key := args["<addon>"].(string)
+
+	token, err := remote.GetUPMToken()
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to retrieve UPM token",
+		)
+	}
+
+	addon, err := remote.GetAddon(token, key)
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to retrieve addon",
+		)
+	}
+
+	err = remote.DisableAddon(token, addon)
+	if err != nil {
+		return karma.Format(
+			err,
+			"unable to disable addon",
+		)
+	}
+
+	fmt.Printf("addon has been disabled: %s\n", key)
 
 	return nil
 }

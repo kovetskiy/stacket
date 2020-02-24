@@ -21,17 +21,19 @@ You should write configuration file using following syntax:
   password = "sup3rp@ssw0rd31337"
 
 Usage:
-  stacket [options] projects      create <project>
-  stacket [options] repositories  list   <project>
-  stacket [options] repositories  create <project> <repository>
-  stacket [options] repositories  rename <project> <repository> <new-name>
-  stacket [options] repositories  move   <project> <repository> <new-project>
-  stacket [options] repositories  remove <project> <repository>
-  stacket [options] pull-requests create <project> <repository> <from> [<to>] [-r <reviewer>]...
-  stacket [options] addons uninstall <addon>
-  stacket [options] addons install <path>
-  stacket [options] addons license set <addon>
-  stacket -h | --help
+  stacket [options] projects       create    <project>
+  stacket [options] repositories   list      <project>
+  stacket [options] repositories   create    <project> <repository>
+  stacket [options] repositories   rename    <project> <repository> <new-name>
+  stacket [options] repositories   move      <project> <repository> <new-project>
+  stacket [options] repositories   remove    <project> <repository>
+  stacket [options] pull-requests  create    <project> <repository> <from> [<to>] [-r <reviewer>]...
+  stacket [options] addons         uninstall <addon>
+  stacket [options] addons         install   <path>
+  stacket [options] addons         disable   <addon>
+  stacket [options] addons         enable    <addon>
+  stacket [options] addons license set       <addon>
+  stacket -h |--help
   stacket --version
 
 Options:
@@ -122,6 +124,8 @@ func main() {
 				"uninstall": handleAddonsUninstall,
 				"install":   handleAddonsInstall,
 				"license":   handleAddonsLicense,
+				"enable":    handleAddonsEnable,
+				"disable":   handleAddonsDisable,
 			},
 		)
 	}
