@@ -6,14 +6,17 @@ interface for managing pull-requests, repositories and their settings.
 
 ## Features
 
-- [x] repositories: create new
-- [x] repositories: list
-- [ ] repositories: edit settings
-- [x] pull-requests: create new
-- [ ] pull-requests: edit
-- [ ] pull-requests: approve
-- [ ] pull-requests: merge
-- [ ] pull-requests: decline
+- [x] Create a project
+- [x] List repositories in a project
+- [x] Create a repository in a project
+- [x] Rename a repository
+- [x] Move a repository from one project to another
+- [x] Create a pull request
+- [x] Uninstall an addon by key
+- [x] Install an addon by given path
+- [x] Disable an addon by key
+- [x] Enable an addon by key
+- [x] Set addon license
 
 ## Installation
 
@@ -27,27 +30,39 @@ Arch Linux users can create package using `pkgbuild` branch.
 
 ## Usage
 
-#### Create a repository
-
 ```
-stacket repositories create <project> <repository>
+Usage:
+  stacket [options] projects       create    <project>
+  stacket [options] repositories   list      <project>
+  stacket [options] repositories   create    <project> <repository>
+  stacket [options] repositories   rename    <project> <repository> <new-name>
+  stacket [options] repositories   move      <project> <repository> <new-project>
+  stacket [options] repositories   remove    <project> <repository>
+  stacket [options] pull-requests  create    <project> <repository> <from> [<to>] [-r <reviewer>]...
+  stacket [options] addons         uninstall <addon>
+  stacket [options] addons         install   <path>
+  stacket [options] addons         disable   <addon>
+  stacket [options] addons         enable    <addon>
+  stacket [options] addons license set       <addon>
+  stacket -h |--help
+  stacket --version
+
+Options:
+  projects                      Work with projects.
+  repositories                  Work with <project> repositories.
+  pull-requests                 Work with <project>/<repository> pull-requests.
+    -t --title <title>          Speicfy pull-request title.
+    -d --desc <description>     Specify pull-request description.
+    -r --reviewer <reviewer>    Specify pull-request reviewer.
+  addons                        Work with Atlassian Add-ons.
+  --config <path>               Use specified config file
+                                 [default: /home/operator/.config/stacket.conf].
+  --uri <bitbucket>             Use this URI instead of config.
+  -g --git                      Set git remote origin.
+  -h --help                     Show this screen.
+  --version                     Show version.
 ```
 
-
-#### List repositories
-
-```
-stacket repositories list <project>
-```
-
-#### Create a pull-request
-
-```
-stacket pull-requests create <project> <repository> \
-    <from> [<to>] \
-    [-t <title>] [-d <description>] \
-    [-r <reviewer>]...
-```
 
 ## Configuration
 
