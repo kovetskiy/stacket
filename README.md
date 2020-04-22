@@ -66,10 +66,21 @@ Options:
 
 ## Configuration
 
-You should write configuration file using following syntax:
+You can write configuration file using following syntax:
 
 ```toml
 base_url = "http://git.local"
 username = "e.kovetskiy"
 password = "sup3rp@ssw0rd31337"
 ```
+
+or you are working with lots of bitbucket setups, you can pass the config as
+URI to `--uri` flag:
+
+```
+stacket --uri http://admin:adminpass@bitbucket.local/
+```
+
+## Slack
+
+Live chat in Slack: [slack.reconquest.io](https://slack.reconquest.io/)
