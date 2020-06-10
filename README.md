@@ -1,7 +1,7 @@
 stacket
 =======
 
-The client for Atlassiah Stash/Bitbucket Server that provides command line
+It's a client for Atlassiah Stash/Bitbucket Server that provides command line
 interface for managing pull-requests, repositories and their settings.
 
 ## Features
@@ -13,10 +13,10 @@ interface for managing pull-requests, repositories and their settings.
 - [x] Move a repository from one project to another
 - [x] Create a pull request
 - [x] Uninstall an addon by key
-- [x] Install an addon by given path
-- [x] Disable an addon by key
-- [x] Enable an addon by key
-- [x] Set addon license
+- [x] Install an addon by a given path
+- [x] Disable an addon by a key
+- [x] Enable an addon by a key
+- [x] Set an addon's license
 
 ## Installation
 
@@ -74,7 +74,7 @@ username = "e.kovetskiy"
 password = "sup3rp@ssw0rd31337"
 ```
 
-or you are working with lots of bitbucket setups, you can pass the config as
+or if you are working with lots of bitbucket setups, you can pass the config as
 URI to `--uri` flag:
 
 ```
