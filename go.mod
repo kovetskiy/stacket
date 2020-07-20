@@ -7,7 +7,7 @@ require (
 	github.com/go-yaml/yaml v2.1.0+incompatible // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334 // indirect
 	github.com/kovetskiy/ko v0.0.0-20200302103300-3e301468755d
-	github.com/kovetskiy/stash v0.0.0-20200720102451-60bfb63fdf4e
+	github.com/kovetskiy/stash v1.1.0
 	github.com/kovetskiy/toml v0.2.0 // indirect
 	github.com/reconquest/executil-go v0.0.0-20181110204642-1f5c2d67813f
 	github.com/reconquest/hierr-go v0.0.0-20170824213838-7d09c0176fd2
