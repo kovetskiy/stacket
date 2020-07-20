@@ -8,6 +8,10 @@ github.com/kovetskiy/ko v0.0.0-20200302103300-3e301468755d h1:vqsWvLgMqKw19OzYH0
 github.com/kovetskiy/ko v0.0.0-20200302103300-3e301468755d/go.mod h1:5RTDadc76NCMKavfnEcGrGVdoQ02h8dLHBUEN4h3xsM=
 github.com/kovetskiy/stash v0.0.0-20200610095204-e020cf996f0e h1:L/59Lv4Y5znO/TRhiW7p/YOfDkUXPRlwwhEpBNSIMes=
 github.com/kovetskiy/stash v0.0.0-20200610095204-e020cf996f0e/go.mod h1:xS/FpHODjzibMl5+huhJwyFfkmBIAaCDe35/nEeQdn4=
+github.com/kovetskiy/stash v0.0.0-20200720102152-22338d379322 h1:gQMT8/QWaP1me62LxYbd3tL+EYSAEoZTuvrSiOsmDCw=
+github.com/kovetskiy/stash v0.0.0-20200720102152-22338d379322/go.mod h1:xS/FpHODjzibMl5+huhJwyFfkmBIAaCDe35/nEeQdn4=
+github.com/kovetskiy/stash v0.0.0-20200720102451-60bfb63fdf4e h1:EmLZVak0EJIm/BM/+5Uqm6EgJU6KZJi9Cu7Z0bUBSAE=
+github.com/kovetskiy/stash v0.0.0-20200720102451-60bfb63fdf4e/go.mod h1:xS/FpHODjzibMl5+huhJwyFfkmBIAaCDe35/nEeQdn4=
 github.com/kovetskiy/toml v0.2.0 h1:tMsPGWE3ejTjXop10/17b/tDtbwQJZdBfc0e+l3WndA=
 github.com/kovetskiy/toml v0.2.0/go.mod h1:+nh++V8wCesSlfPA3DSXGO1hiAHDVHDqem4ixTsWuRY=
 github.com/reconquest/executil-go v0.0.0-20181110204642-1f5c2d67813f h1:z1ngdCBGkIqhguiSVsn7VI/PLzGnC6r1JClA4iv+5hA=
