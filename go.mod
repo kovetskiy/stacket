@@ -14,3 +14,5 @@ require (
 	github.com/reconquest/karma-go v0.0.0-20200326104714-79480464fdb5
 	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9 // indirect
 )
+
+replace github.com/kovetskiy/stash => /home/operator/go/src/github.com/kovetskiy/stash

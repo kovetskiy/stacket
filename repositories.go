@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"sort"
@@ -56,9 +57,7 @@ func handleRepositoriesCreate(
 func handleRepositoriesList(
 	args map[string]interface{},
 ) error {
-	var (
-		project = args["<project>"].(string)
-	)
+	project := args["<project>"].(string)
 
 	repos, err := remote.GetProjectRepositories(project)
 	if err != nil {
@@ -135,6 +134,28 @@ func handleRepositoriesRemove(args map[string]interface{}) error {
 	fmt.Printf(
 		"the repository %s/%s has been removed\n",
 		project, repository,
+	)
+
+	return nil
+}
+
+func handleRepositoriesFork(args map[string]interface{}) error {
+	var (
+		project          = args["<project>"].(string)
+		repository, _    = args["<repository>"].(string)
+		newRepository, _ = args["<new-repository>"].(string)
+	)
+
+	fork, err := remote.ForkRepository(project, repository, newRepository)
+	if err != nil {
+		return err
+	}
+
+	log.Println("The repository has been forked")
+
+	fmt.Printf(
+		"%s/%s\n",
+		fork.Project.Key, fork.Slug,
 	)
 
 	return nil
