@@ -28,7 +28,8 @@ Usage:
   stacket [options] repositories   move      <project> <repository> <new-project>
   stacket [options] repositories   remove    <project> <repository>
   stacket [options] repositories   fork      <project> <repository> <new-repository>
-  stacket [options] pull-requests  create    <project> <repository> <from> [<to>] [-r <reviewer>]...
+  stacket [options] pull-requests  create    <project> <repository> <branch>
+         (<from-project> <from-repository> <from-branch> | <from-branch>) [-r <reviewer>]...
   stacket [options] addons         uninstall <addon>
   stacket [options] addons         install   <path>
   stacket [options] addons         disable   <addon>
